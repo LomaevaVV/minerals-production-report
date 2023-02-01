@@ -4,11 +4,12 @@ import { ProductionData } from '../types/production';
 import { fetchProductionDataAction } from './api-actions';
 
 type DataBonus = {
-  productionData?: ProductionData;
+  productionData: ProductionData[];
   productionFetchStatus: string;
 };
 
 const initialState: DataBonus = {
+  productionData: [],
   productionFetchStatus: FetchStatus.Idle,
 };
 

@@ -6,5 +6,5 @@ export const enum FetchStatus {
 }
 
 export const APIRoute = {
-  ProductionData: 'http://84.201.188.117:5027/api/production'
+  ProductionData: '/production'
 } as const;
