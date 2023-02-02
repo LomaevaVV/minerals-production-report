@@ -6,8 +6,6 @@ import { api, store } from './store';
 import MockAdapter from 'axios-mock-adapter';
 import { APIRoute } from './const';
 import { fakeProductionData } from './mocks/mocks';
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,
@@ -17,11 +15,21 @@ const mockAPI = new MockAdapter(api);
 
 mockAPI.onGet(APIRoute.ProductionData).reply(200, fakeProductionData);
 
+mockAPI.onGet(APIRoute.ProductionData).reply((config) => new Promise((resolve, reject) => {
+  setTimeout(() => {
+    const mathRandom = Math.random();
+    if (mathRandom > 0.1) {
+      resolve([200, fakeProductionData]);
+    } else {
+      resolve([500, { success: false }]);
+    }
+  }, 1000);
+}));
+
 root.render(
   <React.StrictMode>
     <Provider store={store}>
       <App />
-      <ToastContainer hideProgressBar />
     </Provider>
   </React.StrictMode>,
 );
